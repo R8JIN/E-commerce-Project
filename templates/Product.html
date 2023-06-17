@@ -34,6 +34,9 @@
 
                 <h6 class="m-2">{{product.datetime.date}} {{product.datetime.time}}</h6>
                 <h6 class="m-2">Time Remaining: {{product.remaining_time}}</h6>
+                {% if ctime == 0 %}
+                    {% url 'add_cart' %}
+                {% endif %}
                 <a href="{% url 'watchlist' id=product.id %}" class="btn btn-secondary m-2">Add to WatchList</a>
                 <blockquote class="blockquote m-2">
                     <h6 class="m-2"> No. of WatchList</h6>

@@ -27,21 +27,22 @@ def add_bid(request, id):
     if request.user == product.user:
         messages.warning(request, 'You are the auctioneer')
         return redirect('/')
-    if request.method == 'POST':
-        amount = request.POST['amt']
-        b = Bid.objects.filter(product__id=id)
-        if not b:
-            if float(amount) < float(product.price):
-                messages.error(request, f'Bid amount should be more than {product.price}')
-                return redirect('/')
-        else:
-            if float(amount) < b.last().bid_amt:
-                messages.error(request, f'Bid amount should be more than bid amount Rs. {b.last().amount}')
-                return redirect('/')
-        bid = Bid(user=request.user, product=Product.objects.get(id=id), bid_amt=amount)
-        bid.save()
-        messages.success(request, 'Bid submitted')
-    return redirect('Home')
+    else:
+        if request.method == 'POST':
+            amount = request.POST['amt']
+            b = Bid.objects.filter(product__id=id)
+            if not b:
+                if float(amount) < float(product.price):
+                    messages.error(request, f'Bid amount should be more than {product.price}')
+                    return redirect('/')
+            else:
+                if float(amount) < b.last().bid_amt:
+                    messages.error(request, f'Bid amount should be more than bid amount Rs. {b.last().amount}')
+                    return redirect('/')
+            bid = Bid(user=request.user, product=Product.objects.get(id=id), bid_amt=amount)
+            bid.save()
+            messages.success(request, 'Bid submitted')
+        return redirect('Home')
 
 
 def cart(request):

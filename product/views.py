@@ -20,6 +20,7 @@ def bid_so_far(request, id):
     bid = Bid.objects.filter(product__id=id).order_by('-datetime')
     return render(request, 'Sell.html', {'bid':bid})
 
+
 def product_detail(request, id):
     product = Product.objects.get(id=id)
     bid = Bid.objects.filter(product__id=id).order_by('-datetime')
