@@ -116,7 +116,7 @@ def add_bid(request, id):
                     return redirect('http://localhost:8000/product/%s' % id)
             else:
                 if float(amount) < b.last().bid_amt + 10/100*float(b.last().bid_amt):
-                    messages.error(request, f'Bid amount should be more than bid amount Rs. {b.last().bid_amt}')
+                    messages.error(request, f'Increment should approximately 10% of what the current bid is Rs. {b.last().bid_amt}')
                     return redirect('http://localhost:8000/product/%s' % id)
             bid = Bid(user=request.user, product=Product.objects.get(id=id), bid_amt=amount)
             bid.save()
@@ -137,10 +137,10 @@ def add_cart():
     for p in products:
         ctime = p.remaining_time_in_minutes()
         if ctime == 0:
-            bid = Bid.objects.filter(product__id=p.id)
+            bid = Bid.objects.filter(product__id=p.id).order_by('bid_amt').reverse()
             # print(bid)
             if bid:
-                bid = bid.last()
+                bid = bid.first()
                 print(bid.bid_amt)
                 p.final_price = bid.bid_amt;
                 p.save()

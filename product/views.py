@@ -26,13 +26,13 @@ def category(request, id):
 
 
 def bid_so_far(request, id):
-    bid = Bid.objects.filter(product__id=id).order_by('-datetime__second')
+    bid = Bid.objects.filter(product__id=id).order_by('bid_amt').reverse()
     return render(request, 'BidSofar.html', {'bid': bid})
 
 
 def product_detail(request, id):
     product = Product.objects.get(id=id)
-    bid = Bid.objects.filter(product__id=id).order_by('-datetime')
+    bid = Bid.objects.filter(product__id=id).order_by('bid_amt').reverse()
     watchlist = WatchList.objects.filter(product=product)
     print(watchlist)
     b = bid.first()
