@@ -1,41 +1,52 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h3 class="text-center my-4">Sell an Item</h3>
-
-<div class="container mt-4">
-<form method="post" action="{% url 'sell' %}">
+<h3 class="text-center my-4">List an Item for Auction</h3>
+<hr class="hr container" />
+<div class="container mt-3">
+<form method="post" action="{% url 'sell' %}" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="form-group" align="center">
         <div class="w-25 mx-2 my-2">
-        <label for="title">Title</label>
-        <input type="text" class="form-control" id="title" name="title" aria-describedby="emailHelp" >
-        <small id="emailHelp" class="form-text text-muted">Name of the product</small>
+            <label for="title"></label>
+            <input type="text" class="form-control" id="title" name="title" aria-describedby="emailHelp" >
+            <small id="emailHelp" class="form-text text-muted">Name of the product</small>
         </div>
          <div class="w-25 mx-2 my-2">
-            <label class="mr-sm-2" for="inlineFormCustomSelect">Category of item</label>
-            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+            <label class="" for="inlineFormCustomSelect"></label>
+            <select class="custom-select" name="Category" id="inlineFormCustomSelect">
             <option selected>Choose...</option>
                 {% for c in category %}
-            <option value="{{c.id}}">{{c.title}}</option>
-
+                <option value="{{c.id}}">{{c.title}}</option>
                 {% endfor %}
             </select>
-    </div>
-    <div class="w-25 mx-2 my-2">
-        <label for="price">Price</label>
-        <input type="number" class="form-control" id="price">
-    </div>
-    <div class="w-50 mx-2 my-2">
-        <label for="exampleFormControlTextarea1">Description</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
-        <small id="" class="form-text text-muted">Provide proper description about the item you are selling</small>
-    </div>
-
-    <div class="w-25 mx-2 my-2">
-        <label for="thumbnail"></label>
-        <input type="image"  name="thumb" id="thumbnail"  width="48" height="48">
-    </div>
+              <small id="Sele" class="form-text text-muted">Select Category</small>
+        </div>
+        <div class="w-25 mx-2 my-2">
+             <label for="price"></label>
+            <input type="number" class="form-control" name="price" id="price">
+            <small id="p" class="form-text text-muted">Price of Product</small>
+        </div>
+        <div class="w-25 mx-2 my-2">
+            <label for="price"></label>
+            <input type="number" class="form-control" name="duration" id="duration">
+            <small id="duration1" class="form-text text-muted">Duration of Auction (In hours)</small>
+        </div>
+        <div class="w-50 mx-2 my-2">
+            <label for="exampleFormControlTextarea1"></label>
+            <textarea class="form-control" name="desc" id="exampleFormControlTextarea1" rows="10"></textarea>
+            <small id="" class="form-text text-muted">Provide proper description about the item you are selling</small>
+        </div>
+        <div class="w-50 mx-2 my-3">
+            <label for="thumbnail"></label>
+            <input type="file"  name="thumb" id="thumbnail" />
+            <small id="" class="form-text text-muted">Provide thumbnail of the item you are selling</small>
+        </div>
+        <div class="w-50 mx-2 my-3">
+            <label for="Image"></label>
+            <input type="file"  name="Image" id="image" />
+            <small id="" class="form-text text-muted">Provide image of the item you are selling</small>
+        </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>
 

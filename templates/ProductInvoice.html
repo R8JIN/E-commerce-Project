@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-center container mt-5">
+    <div class="card" style="width: 25rem;">
+  <img class="card-img-top" src="/media/{{order.product.images}}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title"><b>{{order.product.title}}</b></h5>
+    <h5>Auctioneer {{order.product.user.username}}</h5>
+</div>
+
+
+  <div class="card-body">
+        <p>Bid Price: {{order.product.price}}</p>
+        <p>Sold For: {{order.product.final_price}}</p>
+  </div>
+</div>
+</div>
+{% endblock %}

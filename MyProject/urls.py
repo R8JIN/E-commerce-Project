@@ -23,5 +23,8 @@ urlpatterns = [
     path('', include('product.urls')),
     path('login/', include('Account.urls')),
     path('bidding', include('Bidding.urls')),
+    path('', include('Content.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)
+

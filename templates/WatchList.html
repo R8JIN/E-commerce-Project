@@ -5,22 +5,60 @@
 
 <div class="container">
              <div class="row mt-4 ">
-                 <div class="col"> <h4> Watchlist </h4></div>
+                 <div class="col"> <h4> <b>Watchlist</b> </h4></div>
                  <div class="col-lg-8"><b><hr class="featurette-divider mt-2"></b></div>
              </div>
-    <div class="row">
+
+    <div class="row row-cols-1 row-cols-sm-3 row-cols-sm-4 g-3 mt-3 mb-5">
     {% for p in products %}
-    <div class="col-sm-3">
+    <div class="col-sm-3 my-2">
               <div class="card shadow-sm">
-                    <img class="card-img-top" src="media/{{p.product.thumbNails}}" style="{height:75%;}">
+
+                <div class="card-top">
+
+                    <img class="card-img-top d-inline" src="media/{{p.product.thumbNails}}" style="{height:75%;}">
+                </div>
+
                 <div class="card-body">
-                  <p class="card-text">{{p.product.title}}</p>
+
+                  <p class="card-text">{{p.product.title}}
+                    {% if p.product.remaining_time_in_minutes != 0 %}
+                      <i class="fa fa-solid fa-circle" style="color: #12bf34;"
+                          data-toggle="popover"
+                            data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+                            data-trigger="hover focus"></i></span>
+                      {% else %} <i class="fa fa-solid fa-circle" style="color: red;"></i></span></p>
+                      {% endif %}
+                  </p>
                   <blockquote class="card-text">Rs.{{p.product.price}}</blockquote>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{% url 'Prod_view' id=p.id %}">View</a></button>
+                      <button type="button" class="btn btn-sm btn-primary">
+                          <a class="text-decoration-none text-light" href="{% url 'Prod_view' id=p.id %}">View</a></button>
 <!--                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>-->
+                        <button class="btn btn-light d-inline">
+                        <i class="card-top d-inline fa fa-remove" data-toggle="modal" data-target="#exampleModal"></i>
+                    </button>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Remove from item Watchlist </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-danger"><a href="{% url 'remove_watch' id=p.id %}" class="text-decoration-none text-light">Yes</a></button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+
+                          </div>
+                        </div>
+                      </div>
                     </div>
+                    </div>
+
                     <small class="text-body-secondary">{{p.product.datetime.date}}</small>
                   </div>
                 </div>
@@ -28,5 +66,10 @@
     </div>
         {% endfor %}
     </div>
+
     </div>
+
+
+<!-- Modal -->
+
 {% endblock %}
