@@ -25,7 +25,11 @@ def create_payment(request, id):
             'payment_method': 'paypal'
         },
         'redirect_urls': {
+<<<<<<< HEAD
             'return_url': 'http://localhost:8000/biddingpayment/execute/%s/%s' %(request.user.id, id),
+=======
+            'return_url': 'http://localhost:8000/biddingpayment/execute/%s'% id,
+>>>>>>> f8b31dd233eacae95b4fa5b9f2294677fd88df5b
             'cancel_url': 'http://localhost:8000/payment/cancel/'
         },
         'transactions': [{
@@ -49,7 +53,11 @@ def create_payment(request, id):
         return render(request, 'payment_failed.html')
 
 
+<<<<<<< HEAD
 def execute_payment(request, uid, id):
+=======
+def execute_payment(request, id):
+>>>>>>> f8b31dd233eacae95b4fa5b9f2294677fd88df5b
     print(request.user)
     payment_id = request.GET.get('paymentId')
     payer_id = request.GET.get('PayerID')
@@ -63,14 +71,22 @@ def execute_payment(request, uid, id):
         p = Product.objects.get(id=id)
         # Payment executed successfully
 
+<<<<<<< HEAD
         order = Order(user=User.objects.get(id=uid), product=Product.objects.get(id=id),
+=======
+        order = Order(user=request.user, product=Product.objects.get(id=id),
+>>>>>>> f8b31dd233eacae95b4fa5b9f2294677fd88df5b
                       price=p.final_price)
         cart_ob = Cart.objects.get(product=Product.objects.get(id=id))
         cart_ob.status = 'Paid'
         cart_ob.save()
         order.save()
         messages.success(request, "Payment Done")
+<<<<<<< HEAD
         return redirect('invoice', id=p.id)
+=======
+        return render(request, 'Payment.html', {})
+>>>>>>> f8b31dd233eacae95b4fa5b9f2294677fd88df5b
     else:
         return HttpResponse('Payment execution failed.')
 
@@ -84,8 +100,12 @@ def watchlist(request):
 
 
 def view_invoice(request, id):
+<<<<<<< HEAD
     order = Order.objects.get(product=Product.objects.get(id=id))
     return render(request, 'ProductInvoice.html', {'order': order})
+=======
+    return render(request, 'ProductInvoice.html', {})
+>>>>>>> f8b31dd233eacae95b4fa5b9f2294677fd88df5b
 
 def add_to_watchlist(request, id):
     product = WatchList.objects.filter(user=request.user).filter(product_id=id)
@@ -107,16 +127,21 @@ def remove_from_watchlist(request, id):
 
 def add_bid(request, id):
     product = Product.objects.get(id=id)
+<<<<<<< HEAD
     user_bid = Bid.objects.filter(user=request.user, product=product)
     try:
         depo = Deposite.objects.get(user=request.user, product=product)
     except:
         depo = None
 
+=======
+    print(type(id))
+>>>>>>> f8b31dd233eacae95b4fa5b9f2294677fd88df5b
     if request.user == product.user:
         messages.warning(request, 'You are the auctioneer')
         return redirect('http://localhost:8000/product/%s' % id)
     else:
+<<<<<<< HEAD
         if(depo):
             if(not user_bid):
                 if request.method == 'POST':
@@ -143,6 +168,22 @@ def add_bid(request, id):
         else:
             messages.error(request, "You need to deposite")
             return render(request, 'deposite.html', {'product':product, 'depo': product.price*0.1})
+=======
+        if request.method == 'POST':
+            amount = request.POST['amt']
+            b = Bid.objects.filter(product__id=id)
+            if not b:
+                if float(amount) < float(product.price)+10/100*float(product.price):
+                    messages.error(request, f'Bid amount should be more than {product.price}')
+                    return redirect('http://localhost:8000/product/%s' % id)
+            else:
+                if float(amount) < b.last().bid_amt + 10/100*float(b.last().bid_amt):
+                    messages.error(request, f'Increment should approximately 10% of what the current bid is Rs. {b.last().bid_amt}')
+                    return redirect('http://localhost:8000/product/%s' % id)
+            bid = Bid(user=request.user, product=Product.objects.get(id=id), bid_amt=amount)
+            bid.save()
+            messages.success(request, 'Bid submitted')
+>>>>>>> f8b31dd233eacae95b4fa5b9f2294677fd88df5b
     return redirect('Home')
 
 

@@ -15,6 +15,10 @@ class Bid(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     bid_amt = models.FloatField()
     datetime = models.DateTimeField(default=datetime.now(), blank=True)
+<<<<<<< HEAD
+=======
+
+>>>>>>> f8b31dd233eacae95b4fa5b9f2294677fd88df5b
 
 class Deposite(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

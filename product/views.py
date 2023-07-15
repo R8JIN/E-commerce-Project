@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from product.models import Product, Category
+<<<<<<< HEAD
 from Bidding.models import Bid, WatchList, Deposite
+=======
+from Bidding.models import Bid, WatchList
+>>>>>>> f8b31dd233eacae95b4fa5b9f2294677fd88df5b
 from Content.models import Ads
 # Create your views here.
 
@@ -26,18 +30,28 @@ def category(request, id):
 
 
 def bid_so_far(request, id):
+<<<<<<< HEAD
     bid = Bid.objects.filter(product__id=id).order_by('-datetime__time')
+=======
+    bid = Bid.objects.filter(product__id=id).order_by('bid_amt').reverse()
+>>>>>>> f8b31dd233eacae95b4fa5b9f2294677fd88df5b
     return render(request, 'BidSofar.html', {'bid': bid})
 
 
 def product_detail(request, id):
     product = Product.objects.get(id=id)
+<<<<<<< HEAD
     bid = Bid.objects.filter(product__id=id).order_by('-datetime')
     try:
         deposite = Deposite.objects.get(user=request.user)
     except:
         deposite = None
     watchlist = WatchList.objects.filter(product=product)
+=======
+    bid = Bid.objects.filter(product__id=id).order_by('bid_amt').reverse()
+    watchlist = WatchList.objects.filter(product=product)
+    print(watchlist)
+>>>>>>> f8b31dd233eacae95b4fa5b9f2294677fd88df5b
     b = bid.first()
     ctime = product.remaining_time_in_minutes()
     context = { 'watch':watchlist, 'product': product, 'ctime': ctime, 'bid': bid, 'b': b}

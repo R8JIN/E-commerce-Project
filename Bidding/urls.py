@@ -9,10 +9,15 @@ urlpatterns = [
     path('remove/<id>', remove_from_watchlist, name='remove_watch'),
     path('add_cart', add_cart, name='add_cart'),
     path('payment/create/<id>', create_payment, name='payment'),
+<<<<<<< HEAD
     path('payment/execute/<uid>/<id>', execute_payment, name='execute_payment'),
     path('invoice/<id>', view_invoice, name='invoice'),
     path('deposite/create/<id>', create_deposite, name='deposite'),
     path('deposite/execute/<id>', execute_deposite, name='execute_deposite'),
+=======
+    path('payment/execute/<id>', execute_payment, name='execute_payment'),
+    path('invoice/<id>', view_invoice, name='invoice')
+>>>>>>> f8b31dd233eacae95b4fa5b9f2294677fd88df5b
     # path('cancel-payment/', cancel_payment, name='cancel_payment'),
 
 ]
