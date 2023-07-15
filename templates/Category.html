@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+      <div class="album py-5 bg-body-tertiary">
+        <div class="container">
+
+         <div class="row mb-4">
+             <div class="col"> <h5>{{category.title}}</h5></div>
+             <div class="col-lg-8"><b><hr class="featurette-divider mt-2"></b></div>
+         </div>
+          <div class="row row-cols-1 row-cols-sm-3 row-cols-sm-4 g-3 mb-5">
+            {% for p in products %}
+            <div class="col">
+              <div class="card shadow-sm">
+                    <img class="card-img-top" src="/media/{{p.thumbNails}}" style="{height:75%;}">
+                <div class="card-body">
+                  <p class="card-text">{{p.title}}
+                  {% if p.remaining_time_in_minutes != 0 %}
+                      <i class="fa fa-solid fa-circle" style="color: #12bf34;"
+                          data-toggle="popover"
+                            data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+                            data-trigger="hover focus"></i></span>
+                      {% else %} <i class="fa fa-solid fa-circle" style="color: red;"></i></span></p>
+                      {% endif %}</p>
+                  <blockquote class="card-text">Rs.{{p.price}}</blockquote>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-outline-secondary"><a class="text-decoration-none" href="{% url 'Prod_view' id=p.id %}">View</a></button>
+<!--                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>-->
+                    </div>
+                    <small class="text-body-secondary">{{p.datetime.date}}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+
+
+          </div>
+
+
+        </div>
+      </div>
+
+    </main>
+
+{% endblock %}

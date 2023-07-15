@@ -25,7 +25,6 @@ def signup(request):
         fn = request.POST['fn']
         ln = request.POST['ln']
         em = request.POST['em']
-
         mb = request.POST['mb']
         ad = request.POST['ad']
         un = request.POST['un']
@@ -34,6 +33,7 @@ def signup(request):
         user = User(first_name=fn, last_name=ln, email=em, mobile=mb,
                     address=ad, username=un, password=pw)
         user.save()
+        messages.success(request, "User Registered")
         return redirect('Home')
 
     return HttpResponse('Invalid Access')

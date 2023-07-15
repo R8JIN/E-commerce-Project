@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
     <div class="container pt-5 ">
     <div class="row ">
         <div class="col mb-3 bg-light ">
@@ -8,7 +9,7 @@
             <div class="carousel-inner">
                 <div class="carousel-item  active">
 
-                  <img class="d-block w-100 center"  src="/media/{{product.images}}" alt="First slide" style="width:70% !important;height:100%">
+                  <img class="center"  src="/media/{{product.images}}" alt="First slide" style="width:70% !important;height:50%">
 
                 </div>
 <!--            </div>    <div class="carousel-item">-->
@@ -37,7 +38,7 @@
 
                 <a href="{% url 'watchlist' id=product.id %}" class="btn btn-secondary m-2">Add to WatchList</a>
                 <blockquote class="blockquote m-2">
-                    <h6 class="m-2"> No. of WatchList</h6>
+                    <h6 class="m-2"> No. of WatchList: {{watch| length}}</h6>
                 </blockquote>
             </div>
             <div class="row ">
@@ -45,24 +46,38 @@
                 <div class="card-body text-center">
         <!--                <h5 class="card-title">Card title</h5>-->
         <!--                <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>-->
-                    {% if not bid %}
+                    <!-- {% if not bid %}
                         <p class="card-text m-2">No Bid</p>
                     <h5 class="m-2">Price: Rs {{product.price}}</h5>
                     {% else %}
                         <p class="card-text m-2">Current Bid</p>
                     <h5 class="m-2"> Rs {{b.bid_amt}}</h5>
-                    {% endif %}
+                    {% endif %} -->
+                    <p class="card-text m-2">Starting Price</p>
+                    <h5 class="m-2">Price: Rs {{product.price}}</h5>
                     <button type="button" class="btn btn-primary m-2" data-toggle="modal" data-target="#exampleModalCenter">
                       Add Bid
                     </button>
-                    <a href="{% url 'bidsofar' id=product.id %}"><p class="m-2">Reserve so far</p></a>
+                    <a class="text-decoration-none" href="{% url 'bidsofar' id=product.id %}"><p class="m-2">Reserve so far</p></a>
                 </div>
             </div>
+            </div>
+            <div class="row my-3">
+                <div class="card">
+
+                    <div class="card-body">
+
+                     <h6> <b class="text-primary">{{product.user.email}}</b></h6>
+                      <h6> Seller located in {{product.user.address}}</h6>
+                    </div>
+                </div>
             </div>
 
         </div>
     </div>
-    <div class="row">
+
+    <div class="row my-3">
+        <div class="album py-3 bg-body-tertiary">
         <div class="card" >
             <div class="card-body">
     <!--                <h5 class="card-title">Card title</h5>-->
@@ -72,6 +87,7 @@
         </div>
     </div>
     </div>
+</div>
 
 
 
@@ -118,6 +134,7 @@
       {% endif %}
   </div>
 </div>
+
 
 <!--<div class="modal fade" id="BidModal" tabindex="-1" role="dialog" aria-labelledby="BidModalLabel" aria-hidden="true">-->
 <!--  <div class="modal-dialog modal-dialog-centered" role="document">-->
